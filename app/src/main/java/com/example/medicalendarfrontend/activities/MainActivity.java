@@ -1,8 +1,10 @@
-package com.example.medicalendarfrontend;
+package com.example.medicalendarfrontend.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.medicalendarfrontend.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -11,5 +13,4 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-    //For committing
 }
