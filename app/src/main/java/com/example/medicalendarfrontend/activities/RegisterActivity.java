@@ -1,6 +1,7 @@
 // RegisterActivity.java
 package com.example.medicalendarfrontend.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Toast;
@@ -9,11 +10,21 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.medicalendarfrontend.R;
+import com.example.medicalendarfrontend.requests.RegisterRequest;
+import com.example.medicalendarfrontend.response.MessageResponse;
+import com.example.medicalendarfrontend.utils.APIService;
+import com.example.medicalendarfrontend.utils.RetrofitClient;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
+    APIService apiService;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -26,6 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
         TextInputLayout passwordTextInputLayout = findViewById(R.id.passwordTextInputLayout);
         TextInputLayout confirmPasswordTextInputLayout = findViewById(R.id.confirmPasswordTextInputLayout);
         MaterialButton registerButton = findViewById(R.id.registerButton);
+        apiService = RetrofitClient.getClient().create(APIService.class);
 
         emailEditText.setOnFocusChangeListener((v, hasFocus) -> {
             if (!hasFocus) {
@@ -52,12 +64,36 @@ public class RegisterActivity extends AppCompatActivity {
             } else {
                 emailTextInputLayout.setError(null);
                 confirmPasswordTextInputLayout.setError(null);
-                Toast.makeText(RegisterActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
+                RegisterRequest registerRequest = new RegisterRequest(email, password, confirmPassword);
+
+                // Make the API call
+                Call<MessageResponse> registerCall = apiService.register(registerRequest);
+                registerCall.enqueue(new Callback<MessageResponse>() {
+                    @Override
+                    public void onResponse(Call<MessageResponse> call, Response<MessageResponse> response) {
+                        MessageResponse res = response.body();
+                        if (response.isSuccessful()) {
+                            Toast.makeText(RegisterActivity.this, res.getMessage(), Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        } else {
+                            MessageResponse errorResponse = new Gson().fromJson(response.errorBody().charStream(), MessageResponse.class);
+                            String errorMessage = (errorResponse != null && errorResponse.getMessage() != null) ? errorResponse.getMessage() : "Register failed";
+                            Toast.makeText(RegisterActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<MessageResponse> call, Throwable t) {
+                        Toast.makeText(RegisterActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
 
         findViewById(R.id.alreadyHaveAccountTextView).setOnClickListener(v -> {
             Toast.makeText(RegisterActivity.this, "Navigate to login", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
         });
     }
 
