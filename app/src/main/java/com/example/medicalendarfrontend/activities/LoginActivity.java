@@ -1,6 +1,8 @@
 package com.example.medicalendarfrontend.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Toast;
@@ -23,12 +25,25 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
-    APIService apiService;
+    private static final String SHARED_PREFS_NAME = "MedicalendarPrefs";
+    private static final String USERNAME_KEY = "username";
+    private APIService apiService;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         apiService = RetrofitClient.getClient().create(APIService.class);
+
+        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE);
+        String savedUsername = sharedPreferences.getString(USERNAME_KEY, null);
+        if (savedUsername != null) {
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+            return;
+        }
+
         TextInputEditText emailEditText = findViewById(R.id.emailEditText);
         TextInputEditText passwordEditText = findViewById(R.id.passwordEditText);
         TextInputLayout emailTextInputLayout = findViewById(R.id.emailTextInputLayout);
@@ -65,14 +80,21 @@ public class LoginActivity extends AppCompatActivity {
                         if (response.isSuccessful()) {
                             MessageResponse res = response.body();
                             Toast.makeText(LoginActivity.this, res.getMessage(), Toast.LENGTH_SHORT).show();
+
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString(USERNAME_KEY, email);
+                            editor.apply();
+
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
+                            finish();
                         } else {
                             MessageResponse errorResponse = new Gson().fromJson(response.errorBody().charStream(), MessageResponse.class);
                             String errorMessage = (errorResponse != null && errorResponse.getMessage() != null) ? errorResponse.getMessage() : "Login failed";
                             Toast.makeText(LoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                         }
                     }
+
                     @Override
                     public void onFailure(Call<MessageResponse> call, Throwable t) {
                         Toast.makeText(LoginActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();

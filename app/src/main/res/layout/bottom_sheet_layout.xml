@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="CHỌN HÌNH THỨC ĐẶT KHÁM"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/facility_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bệnh viện đa khoa Singapore (Singapore General Hospital)"
+        android:layout_marginTop="8dp"
+        android:gravity="center"/>
+
+    <Button
+        android:id="@+id/btn_specialist_appointment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đặt khám theo chuyên khoa"
+        android:layout_marginTop="16dp"
+        android:drawableLeft="@drawable/ic_launcher_background"
+        android:background="@drawable/button_bg"/>
+
+    <Button
+        android:id="@+id/btn_health_package"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gói khám sức khỏe"
+        android:layout_marginTop="8dp"
+        android:drawableLeft="@drawable/ic_launcher_background"
+        android:background="@drawable/button_bg"/>
+
+</LinearLayout>

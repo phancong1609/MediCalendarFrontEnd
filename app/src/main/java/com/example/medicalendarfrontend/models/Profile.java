@@ -1,9 +1,12 @@
-package com.example.medicalendarfrontend.requests;
+package com.example.medicalendarfrontend.models;
+
 
 import java.util.Date;
 
-public class EditProfileRequest {
-    Long id;
+
+public class Profile {
+    private Long id;
+
     String name;
     String birthdate;
     String gender;
@@ -18,24 +21,8 @@ public class EditProfileRequest {
     String ward;
     String addressNumber;
 
-    public EditProfileRequest() {
-    }
+    public Profile() {
 
-    public EditProfileRequest(Long id, String name, String birthdate, String gender, String idNumber, String idHealthInsurance, String job, String phone, String nation, String ethnicGroup, String province, String district, String ward, String addressNumber) {
-        this.id = id;
-        this.name = name;
-        this.birthdate = birthdate;
-        this.gender = gender;
-        this.idNumber = idNumber;
-        this.idHealthInsurance = idHealthInsurance;
-        this.job = job;
-        this.phone = phone;
-        this.nation = nation;
-        this.ethnicGroup = ethnicGroup;
-        this.province = province;
-        this.district = district;
-        this.ward = ward;
-        this.addressNumber = addressNumber;
     }
 
     public Long getId() {
@@ -61,6 +48,7 @@ public class EditProfileRequest {
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
     }
+
 
     public String getGender() {
         return gender;
@@ -147,6 +135,23 @@ public class EditProfileRequest {
     }
 
     public void setAddressNumber(String addressNumber) {
+        this.addressNumber = addressNumber;
+    }
+
+    public Profile(Long id, String name, String birthdate, String gender, String idNumber, String idHealthInsurance, String job, String phone, String nation, String ethnicGroup, String province, String district, String ward, String addressNumber) {
+        this.id = id;
+        this.name = name;
+        this.birthdate = birthdate;
+        this.gender = gender;
+        this.idNumber = idNumber;
+        this.idHealthInsurance = idHealthInsurance;
+        this.job = job;
+        this.phone = phone;
+        this.nation = nation;
+        this.ethnicGroup = ethnicGroup;
+        this.province = province;
+        this.district = district;
+        this.ward = ward;
         this.addressNumber = addressNumber;
     }
 }

@@ -9,4 +9,16 @@
     <string name="name">Name</string>
     <string name="register">Register</string>
     <string name="already_have_account">Already have an account? Login</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="back_button">Back</string>
+    <string name="add_profile">Tạo mới hồ sơ</string>
+    <string name="edit_profile">Chỉnh sửa hồ sơ</string>
+    <string name="create_profile">Tạo mới hồ sơ</string>
+    <string name="select_profile">Select Profile</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="appointments">Appointments</string>
+    <string name="notifications">Notifications</string>
+    <string name="account">Account</string>
 </resources>

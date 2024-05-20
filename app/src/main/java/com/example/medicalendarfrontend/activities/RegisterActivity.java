@@ -64,29 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
             } else {
                 emailTextInputLayout.setError(null);
                 confirmPasswordTextInputLayout.setError(null);
-                RegisterRequest registerRequest = new RegisterRequest(email, password, confirmPassword);
-
-                // Make the API call
-                Call<MessageResponse> registerCall = apiService.register(registerRequest);
-                registerCall.enqueue(new Callback<MessageResponse>() {
-                    @Override
-                    public void onResponse(Call<MessageResponse> call, Response<MessageResponse> response) {
-                        MessageResponse res = response.body();
-                        if (response.isSuccessful()) {
-                            Toast.makeText(RegisterActivity.this, res.getMessage(), Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                            startActivity(intent);
-                        } else {
-                            MessageResponse errorResponse = new Gson().fromJson(response.errorBody().charStream(), MessageResponse.class);
-                            String errorMessage = (errorResponse != null && errorResponse.getMessage() != null) ? errorResponse.getMessage() : "Register failed";
-                            Toast.makeText(RegisterActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<MessageResponse> call, Throwable t) {
-                        Toast.makeText(RegisterActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                register(email, password, confirmPassword);
             }
         });
 
@@ -99,5 +77,32 @@ public class RegisterActivity extends AppCompatActivity {
 
     private boolean isValidEmail(CharSequence email) {
         return email != null && Patterns.EMAIL_ADDRESS.matcher(email).matches();
+    }
+
+    private void register(String email, String password, String confirmPassword)
+    {
+        RegisterRequest registerRequest = new RegisterRequest(email, password, confirmPassword);
+
+        // Make the API call
+        Call<MessageResponse> registerCall = apiService.register(registerRequest);
+        registerCall.enqueue(new Callback<MessageResponse>() {
+            @Override
+            public void onResponse(Call<MessageResponse> call, Response<MessageResponse> response) {
+                MessageResponse res = response.body();
+                if (response.isSuccessful()) {
+                    Toast.makeText(RegisterActivity.this, res.getMessage(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    MessageResponse errorResponse = new Gson().fromJson(response.errorBody().charStream(), MessageResponse.class);
+                    String errorMessage = (errorResponse != null && errorResponse.getMessage() != null) ? errorResponse.getMessage() : "Register failed";
+                    Toast.makeText(RegisterActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<MessageResponse> call, Throwable t) {
+                Toast.makeText(RegisterActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

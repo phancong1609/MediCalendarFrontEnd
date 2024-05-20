@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProfileFragment">
+
+    <!-- Toolbar -->
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_arrow_back"
+            android:padding="8dp"
+            />
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tạo mới hồ sơ"
+            android:textSize="18sp"
+            android:layout_gravity="center"
+            android:textColor="@android:color/white"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <!-- ScrollView to allow vertical scrolling -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Full Name -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Họ và tên (có dấu) *"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="8dp"/>
+
+            <EditText
+                android:id="@+id/editText_fullName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nhập họ và tên"
+                android:inputType="textPersonName"/>
+
+            <!-- Date of Birth and Gender -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2"
+                android:layout_marginTop="8dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ngày sinh *"
+                        android:textColor="@android:color/black"/>
+
+                    <EditText
+                        android:id="@+id/editText_dob"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Ngày / Tháng / Năm"
+                        android:inputType="date"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:layout_marginStart="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Giới tính *"
+                        android:textColor="@android:color/black"/>
+
+                    <EditText
+                        android:id="@+id/editText_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Giới tính"
+                        android:inputType="text"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- CMND/Passport -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CMND/Passport"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="8dp"/>
+
+            <EditText
+                android:id="@+id/editText_cmndPassport"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="CMND/Passport"
+                android:inputType="text"/>
+
+            <!-- Health Insurance Code -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mã bảo hiểm y tế"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="8dp"/>
+
+            <EditText
+                android:id="@+id/editText_insuranceCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mã bảo hiểm y tế"
+                android:inputType="text"/>
+
+            <!-- Occupation -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nghề nghiệp *"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="8dp"/>
+
+            <EditText
+                android:id="@+id/editText_occupation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Chọn nghề nghiệp"
+                android:inputType="text"/>
+
+            <!-- Phone Number -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Số điện thoại *"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="8dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView_phoneCode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+84"
+                    android:padding="16dp"
+                    android:background="@drawable/phone_code_background"
+                    android:gravity="center"/>
+
+                <EditText
+                    android:id="@+id/editText_phoneNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="09xxxxxxxx"
+                    android:inputType="phone"
+                    android:layout_marginStart="8dp"/>
+            </LinearLayout>
+
+            <!-- Email -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email (dùng để nhận phiếu khám bệnh)"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="8dp"/>
+
+            <EditText
+                android:id="@+id/editText_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:inputType="textEmailAddress"/>
+
+            <!-- Country -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Quốc gia"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="8dp"/>
+
+            <EditText
+                android:id="@+id/editText_country"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Việt Nam"
+                android:inputType="text"/>
+
+            <!-- Ethnicity -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Dân tộc"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="8dp"/>
+
+            <EditText
+                android:id="@+id/editText_ethnicity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Dân tộc"
+                android:inputType="text"/>
+
+            <!-- Province/City -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tỉnh / TP"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="8dp"/>
+
+            <EditText
+                android:id="@+id/editText_province"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Tỉnh thành"
+                android:inputType="text"/>
+
+            <!-- District -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Quận/ Huyện"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="8dp"/>
+
+            <EditText
+                android:id="@+id/editText_district"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Quận / Huyện"
+                android:inputType="text"/>
+
+            <!-- Ward -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Phường / Xã"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="8dp"/>
+
+            <EditText
+                android:id="@+id/editText_ward"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Phường / Xã"
+                android:inputType="text"/>
+
+            <!-- Address -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Địa chỉ"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="8dp"/>
+
+            <EditText
+                android:id="@+id/editText_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Ấp, thông, tổ, khóm, tên đường,..."
+                android:inputType="text"/>
+
+            <!-- Submit Button -->
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tạo mới hồ sơ"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="?attr/colorPrimary"
+                android:textColor="@android:color/white"/>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
