@@ -68,4 +68,6 @@ public class Doctor {
     public void setSpeciality(String speciality) {
         this.speciality = speciality;
     }
+
+    ///////////////////FOR TEST MERGING
 }
